@@ -1,0 +1,708 @@
+/* colori originali 
+    --primary: #1363C6;
+    --secondary: #15ACE1;
+    --light: #F4F7FE;
+    --dark: #14183E; 
+*/
+
+
+/********** Template CSS **********/
+
+.bottom-gradient-blur {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;                /* altezza totale dell'overlay */
+  pointer-events: none;        /* non interferisce con click/hover */
+  z-index: 9999;
+
+  /* Sfocatura uniforme applicata all'intero overlay */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  /* Maschera a gradiente: in basso lascia vedere 100% della sfocatura,
+     in alto la nasconde (rivelando il contenuto nitido sottostante) */
+  mask-image: linear-gradient(to top, black 0%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to top, black 0%, transparent 100%);
+}
+
+/* Stato iniziale: leggermente più piccolo */
+.zoom-on-scroll {
+  opacity: 0.9;
+  transform: scale(0.95);
+  transition:
+    transform 0.6s ease-out,
+    opacity 0.6s ease-out;
+  will-change: transform, opacity;
+}
+
+/* Quando la sezione è in vista (>50% visibile): ingrandita e pienamente opaca */
+.zoom-on-scroll.in-view {
+  opacity: 1;
+  transform: scale(1);
+}
+
+
+
+/*** Spinner ***/
+#spinner {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .5s ease-out, visibility 0s linear .5s;
+    z-index: 99999;
+}
+
+#spinner.show {
+    transition: opacity .5s ease-out, visibility 0s linear 0s;
+    visibility: visible;
+    opacity: 1;
+}
+
+.back-to-top {
+    position: fixed;
+    display: none;
+    right: 45px;
+    bottom: 45px;
+    z-index: 99;
+}
+
+
+/*** Heading ***/
+h1,
+h2,
+h3,
+.fw-bold {
+    font-weight: 700 !important;
+}
+
+h4,
+h5,
+h6,
+.fw-medium {
+    font-weight: 500 !important;
+}
+
+
+/*** Button ***/
+.btn {
+    font-weight: 500;
+    transition: .5s;
+}
+
+.btn-square {
+    width: 38px;
+    height: 38px;
+}
+
+.btn-sm-square {
+    width: 32px;
+    height: 32px;
+}
+
+.btn-lg-square {
+    width: 48px;
+    height: 48px;
+}
+
+.btn-square,
+.btn-sm-square,
+.btn-lg-square {
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: normal;
+    border-radius: 50px;
+}
+
+
+/*** Navbar ***/
+.sticky-top {
+    top: -150px;
+    transition: .5s;
+}
+
+.navbar {
+    padding: 11px 0 !important;
+    height: 75px;
+}
+
+/* 1) Sfondo del pulsante (il quadrato) */
+.navbar-toggler {
+  background-color: black;   /* il colore che preferisci */
+  border: none;                /* rimuove il bordo se non lo vuoi */
+}
+
+/* 2) Icona hamburger colorata di bianco */
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%23FFFFFF' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+/* Solo quando il menu è visibile (ha la classe “show” dopo il click) */
+.navbar-collapse.show {
+  background-color: white;    /* il tuo colore personalizzato */
+}
+
+/* Colore dei link all’interno del collapse */
+.navbar-collapse.show .nav-link {
+  color: black;               /* testo chiaro, per contrasto */
+}
+
+/* Eventuale hover sui link nel collapse */
+.navbar-collapse.show .nav-link:hover {
+  color: #ffffff;
+  background-color: rgba(255,255,255,0.1);
+}
+
+
+.navbar .nav-item{
+    color: black !important;
+}
+
+.navbar .nav-item .nav-link{
+    color: black !important;
+}
+
+.navbar .navbar-nav .nav-link {
+    margin-right: 35px;
+    padding: 0;
+    color: rgba(255, 255, 255, .7);
+    outline: none;
+}
+
+.navbar .burla{
+    margin-right: 35px;
+    padding: 0;
+    color: rgba(0, 0, 0, 0.7);
+    outline: none;
+    margin-left: auto !important;
+    border: 2px solid grey;
+}
+
+.navbar .burla:hover{
+    margin-right: 35px;
+    padding: 0;
+    color: rgb(108, 98, 98);
+    outline: none;
+    margin-left: auto !important;
+}
+
+.navbar .navbar-nav .nav-link:hover,
+.navbar .navbar-nav .nav-link.active {
+    color: rgb(0, 0, 0);
+}
+
+.navbar .dropdown-toggle::after {
+    border: none;
+    content: "\f107";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    vertical-align: middle;
+    margin-left: 8px;
+}
+
+@media (max-width: 991.98px) {
+    .navbar .navbar-nav {
+        padding: 0 15px;
+        background: white !important;
+    }
+
+    .navbar .navbar-nav .nav-link  {
+        margin-right: 0;
+        padding: 10px 0;
+    }
+}
+
+@media (min-width: 992px) {
+    .navbar .nav-item .dropdown-menu {
+        display: block;
+        border: none;
+        margin-top: 0;
+        top: 150%;
+        opacity: 0;
+        visibility: hidden;
+        transition: .5s;
+    }
+
+    .navbar .nav-item:hover .dropdown-menu {
+        top: 100%;
+        visibility: visible;
+        transition: .5s;
+        opacity: 1;
+    }
+}
+
+
+/*** Hero Header ***/
+.hero-header {
+    margin-top: -75px;
+    background: url(../img/bg-hero.png) center center no-repeat;
+    background-size: cover;
+}
+
+.hero-header .breadcrumb-item+.breadcrumb-item::before {
+    color: var(--light);
+}
+
+
+/*** Section Title ***/
+.section-title::before {
+    position: absolute;
+    content: "";
+    width: 45px;
+    height: 4px;
+    bottom: 0;
+    left: 0;
+    background: var(--dark);
+}
+
+.section-title::after {
+    position: absolute;
+    content: "";
+    width: 4px;
+    height: 4px;
+    bottom: 0;
+    left: 50px;
+    background: var(--dark);
+}
+
+.section-title.text-center::before {
+    left: 50%;
+    margin-left: -25px;
+}
+
+.section-title.text-center::after {
+    left: 50%;
+    margin-left: 25px;
+}
+
+.section-title h6::before,
+.section-title h6::after {
+    position: absolute;
+    content: "";
+    width: 10px;
+    height: 10px;
+    top: 2px;
+    left: 0;
+    background: rgba(33, 66, 177, .5);
+}
+
+.section-title h6::after {
+    top: 5px;
+    left: 3px;
+}
+
+
+/*** About ***/
+.about-img {
+  position: relative;
+  overflow: hidden;
+  display: inline-block; /* fa sì che il contenitore prenda la dimensione dell’immagine */
+}
+
+.about-img img {
+  display: block;        /* elimina gli spazi sotto l’immagine */
+  width: 100%;           /* responsiva */
+  height: auto;
+}
+
+.about-img::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+
+  /* Maschera puzzle: riempi esattamente tutto il box */
+  background: url(../img/bg-about-img.png) no-repeat center center;
+  background-size: 100% 100%;
+  
+  /* Se vuoi semitrasparente, per vedere l’immagine sotto: */
+  /* background-color: rgba(255,255,255,0.2); */
+}
+
+/*** Service ***/
+.service-item {
+    position: relative;
+    padding: 45px 30px;
+    background: black;
+    transition: .5s;
+    display: flex;            /* diventa flex container */
+    flex-direction: column;   /* disporre header, p e link in colonna */
+    height: 100%;             /* occupa tutta l’altezza della colonna */
+}
+
+.service-item:hover {
+    background: var(--primary);
+}
+
+.service-item .service-icon {
+    margin: 0 auto 20px auto;
+    width: 90px;
+    height: 90px;
+    color: var(--primary);
+    background: var(--light);
+    transition: .5s;
+}
+
+.service-item:hover .service-icon {
+    background: black;
+}
+
+.service-item h5,
+.service-item p {
+    transition: .5s;
+}
+
+.service-item h5{
+    color: #FFFFFF;
+}
+
+.service-item:hover h5,
+.service-item:hover p {
+    color: black;
+}
+
+/* nel tuo CSS */
+.spacing-small  { margin-top: 1rem; margin-bottom: 1rem; }
+.spacing-medium { margin-top: 5rem; margin-bottom: 2rem; }
+.spacing-large  { margin-top: 4.5rem; margin-bottom: 0rem; }
+
+
+.service-item .btn {
+    position: relative;
+    display: flex;
+    color: white !important;
+    transition: .5s;
+    z-index: 1;
+}
+
+.service-item a.btn {
+    position: relative;
+    display: flex;
+    color: white !important;
+    transition: .5s;
+    z-index: 1;
+}
+
+.service-item:hover a.btn {
+    color: black !important;
+}
+
+.service-item a.btn::before {
+    position: absolute;
+    content: "";
+    width: 35px;
+    height: 35px;
+    top: 0;
+    left: 0;
+    border-radius: 35px;
+    background: var(--light);
+    transition: .5s;
+    z-index: -1;
+}
+
+.service-item:hover a.btn::before {
+    width: 100%;
+    background: var(--light);
+}
+
+
+/*** Feature ***/
+/* Cambia il background colore puro */
+#features {
+  background-color: #ffffff !important;   /* scegli il colore che preferisci */
+}
+
+/* Variabili custom per decidere la larghezza e l'altezza */
+:root {
+  --feature-img-width: 400px;   /* Modifica qui per la larghezza desiderata */
+  --feature-img-height: 350px;  /* Modifica qui per l'altezza desiderata */
+}
+
+#features .feature-img {
+  width: var(--feature-img-width);
+  height: var(--feature-img-height);
+  object-fit: cover;      /* taglia l'immagine senza deformarla */
+  display: block;         /* elimina eventuali gap inline */
+  margin-left: auto;      /* centra orizzontalmente se vuoi */
+  margin-right: auto;
+}
+
+/*** Newsletter ***/
+.newsletter {
+    background: url(../img/bg-hero.png) center center no-repeat;
+    background-size: cover;
+}
+
+@media (min-width: 992px) {
+    .newsletter .container {
+        max-width: 100% !important;
+    }
+
+    .newsletter .newsletter-text  {
+        padding-right: calc(((100% - 960px) / 2) + .75rem);
+    }
+}
+
+@media (min-width: 1200px) {
+    .newsletter .newsletter-text  {
+        padding-right: calc(((100% - 1140px) / 2) + .75rem);
+    }
+}
+
+@media (min-width: 1400px) {
+    .newsletter .newsletter-text  {
+        padding-right: calc(((100% - 1320px) / 2) + .75rem);
+    }
+}
+
+
+/*** Case Study ***/
+.case-item img {
+    transition: .5s;
+}
+  
+.case-item:hover img {
+    transform: scale(1.2);
+}
+  
+.case-overlay {
+    position: absolute;
+    padding: 30px;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    background: linear-gradient(rgba(20, 24, 62, 0), var(--dark));
+    z-index: 1;
+}
+
+.case-overlay small {
+    display: inline-block;
+    padding: 3px 15px;
+    color: #FFFFFF;
+    background: rgba(20, 24, 62, .7);
+    border-radius: 25px;
+    margin-bottom: 15px;
+}
+
+.case-overlay span.btn:hover {
+    color: var(--primary);
+    background: #FFFFFF;
+    border-color: #FFFFFF;
+}
+
+
+/*** FAQs ***/
+.accordion .accordion-item {
+    border: none;
+    margin-bottom: 15px;
+}
+
+.accordion .accordion-button {
+    background: white;
+    color: black;
+    border-radius: 2px;
+}
+
+.accordion .accordion-button:not(.collapsed) {
+    color: #FFFFFF;
+    background: var(--primary);
+    box-shadow: none;
+}
+
+.accordion .accordion-body {
+    padding: 15px 0 0 0;
+    color: black;
+}
+
+
+.accordion .accordion-body:active {
+    padding: 15px 0 0 0;
+}
+
+.accordion-button[aria-expanded="true"] {
+  color: #000 !important;
+}
+
+/*** Testimonial ***/
+.testimonial-carousel {
+    position: relative;
+}
+
+.testimonial-carousel .owl-nav {
+    position: absolute;
+    width: 40px;
+    height: 100%;
+    top: calc(50% - 50px);
+    left: -21px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.testimonial-carousel .owl-nav .owl-prev,
+.testimonial-carousel .owl-nav .owl-next {
+    margin: 5px 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    background: #FFFFFF;
+    border: 1px solid var(--primary);
+    border-radius: 40px;
+    font-size: 18px;
+    transition: .5s;
+}
+
+.testimonial-carousel .owl-nav .owl-prev:hover,
+.testimonial-carousel .owl-nav .owl-next:hover {
+    background: var(--primary);
+    color: #FFFFFF;
+}
+
+.testimonial-carousel .owl-dots {
+    margin-top: 35px;
+    margin-left: 3rem;
+}
+
+.testimonial-carousel .owl-dot {
+    position: relative;
+    display: inline-block;
+    margin-right: 10px;
+    width: 15px;
+    height: 15px;
+    background: #FFFFFF;
+    border: 1px solid var(--primary);
+    border-radius: 15px;
+    transition: .5s;
+}
+
+.testimonial-carousel .owl-dot.active {
+    width: 30px;
+    background: var(--primary);
+}
+
+
+/*** Team ***/
+.team-item {
+    transition: .5s;
+    border: 1px solid transparent;
+    transition: .5s;
+}
+
+.team-item:hover {
+
+    border-color: var(--primary);
+}
+
+/* Base: cambia sfondo, bordo e icona (colore testo) */
+.btn-square.btn-primary {
+  background-color: #000;   /* il tuo colore di sfondo */
+  border-color:     #000;   /* bordo uguale allo sfondo */
+  color:             #fff;  /* colore dell’icona */
+}
+
+/* Stato al passaggio mouse */
+.btn-square.btn-primary:hover,
+.btn-square.btn-primary:focus {
+  background-color: #333;   /* colore leggermente più chiaro/scuro per l’hover */
+  border-color:     #333;
+  color:             #fff;
+}
+
+.btn-por.btn-primary {
+    background-color: #000;
+    border-color: #000;
+}
+
+.btn-por.btn-primary:hover{
+    background-color: #333;   /* colore leggermente più chiaro/scuro per l’hover */
+  border-color:     #333;
+}
+
+
+/*** Footer ***/
+.footer {
+    background: url(../img/footer.png) center center no-repeat;
+    background-size: contain;
+}
+
+.footer .btn.btn-social {
+    margin-right: 5px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,.5);
+    border: 1px solid rgba(256, 256, 256, .1);
+    border-radius: 40px;
+    transition: .3s;
+}
+
+.footer .btn.btn-social:hover {
+    color: var(--primary);
+}
+
+.footer .btn.btn-link {
+    display: block;
+    margin-bottom: 10px;
+    padding: 0;
+    text-align: left;
+    color: rgba(255,255,255,.5);
+    font-weight: normal;
+    transition: .3s;
+}
+
+.footer .btn.btn-link:hover {
+    color: #FFFFFF;
+}
+
+.footer .btn.btn-link::before {
+    position: relative;
+    content: "\f105";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    margin-right: 10px;
+}
+
+.footer .btn.btn-link:hover {
+    letter-spacing: 1px;
+    box-shadow: none;
+}
+
+.footer .copyright {
+    padding: 25px 0;
+    font-size: 14px;
+    border-top: 1px solid rgba(256, 256, 256, .1);
+}
+
+.footer .copyright a {
+    color: rgba(255,255,255,.5);
+}
+
+.footer .copyright a:hover {
+    color: #FFFFFF;
+}
+
+.footer .footer-menu a {
+    margin-right: 15px;
+    padding-right: 15px;
+    border-right: 1px solid rgba(255, 255, 255, .1);
+}
+
+.footer .footer-menu a:last-child {
+    margin-right: 0;
+    padding-right: 0;
+    border-right: none;
+}
